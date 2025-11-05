@@ -18,3 +18,12 @@ export const API_OPTIONS = {
 };
 
 export const IMG_CDN = "https://image.tmdb.org/t/p/w500/";
+
+export const BG_IMG =
+  "https://assets.nflxext.com/ffe/siteui/vlv3/a927b1ee-784d-494a-aa80-cf7a062d2523/web/PK-en-20250714-TRIFECTA-perspective_3ea31bb5-14e1-41fe-997f-52b7ec8f28e4_large.jpg";
+
+export const SUPPORTED_LANGUAGES = [
+  { identifier: "en", name: "English" },
+  { identifier: "arabic", name: "Arabic" },
+  { identifier: "urdu", name: "Urdu" },
+];
