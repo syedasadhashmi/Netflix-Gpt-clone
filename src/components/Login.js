@@ -80,9 +80,9 @@ const Login = () => {
         email.current.value,
         password.current.value
       )
-        .then((userCredential) => {
+        .then(() => {
           // Signed in
-          const user = userCredential.user;
+          // const user = userCredential.user;
           // console.log("signedIn User", user);
         })
         .catch((error) => {
