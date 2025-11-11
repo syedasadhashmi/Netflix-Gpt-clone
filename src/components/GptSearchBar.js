@@ -20,8 +20,8 @@ const GptSearchBar = () => {
       API_OPTIONS
     );
 
-    const json = await res.json();
-    console.log(json?.results);
+    const json = await res?.json();
+    // console.log(json?.results);
     return json?.results;
   };
 
@@ -40,7 +40,7 @@ const GptSearchBar = () => {
       instructions: "work as a movie recommendation system",
       input: gptQuery,
     });
-    console.log(response.output_text);
+    // console.log(response.output_text);
 
     const resultArray = response.output_text.split(",");
     dispatch(addMovieNames(resultArray));
