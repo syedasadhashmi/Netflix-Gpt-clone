@@ -1,15 +1,32 @@
 import React, { useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { lang } from "../utils/languageConstants";
 import openai from "../utils/openai";
+import { API_OPTIONS } from "../utils/constants";
+import { addGptMoviesTMDBResult, addMovieNames } from "../utils/gptSlice";
 
 const GptSearchBar = () => {
   // const [inputText, setInputText] = useState("");
   const searchText = useRef(null);
   const selectedLang = useSelector((store) => store.config.lang);
+  const dispatch = useDispatch();
+
+  // Api call for specific movie
+  const movieApi = async (movie) => {
+    const res = await fetch(
+      "https://api.themoviedb.org/3/search/movie?query=" +
+        movie +
+        "&include_adult=false&language=en-US&page=1",
+      API_OPTIONS
+    );
+
+    const json = await res.json();
+    console.log(json?.results);
+    return json?.results;
+  };
+
+  // openAi search api
   const searchHandler = async () => {
-    console.log(searchText.current.value);
-    console.log(process.env.REACT_APP_OPEN_AI_KEY);
     // const models = await openai.models.list();
     // console.log("models", models);
 
@@ -24,7 +41,19 @@ const GptSearchBar = () => {
       input: gptQuery,
     });
     console.log(response.output_text);
+
+    const resultArray = response.output_text.split(",");
+    dispatch(addMovieNames(resultArray));
+
+    // console.log("After Split", resultArray);
+    const promiseArray = resultArray?.map((movie) => movieApi(movie));
+
+    const resolvedPromises = await Promise.all(promiseArray);
+    dispatch(addGptMoviesTMDBResult(resolvedPromises));
+
+    // console.log("resolvedPromises", resolvedPromises);
   };
+
   return (
     <div className="pt-[10%] flex justify-center">
       <form

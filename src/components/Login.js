@@ -21,7 +21,7 @@ const Login = () => {
   const name = useRef(null);
 
   const toggleSignUp = () => {
-    console.log("toggle");
+    // console.log("toggle");
     setIsSignInForm(!isSignInForm);
   };
 
@@ -34,7 +34,7 @@ const Login = () => {
     );
     setErrorMessage(message);
     if (message) return;
-    console.log(password.current.value);
+    // console.log(password.current.value);
     // Sign Up Sign In Logic
     if (!isSignInForm) {
       // SignUp Logic
@@ -61,7 +61,7 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              console.log(user);
+              // console.log(user);
             })
             .catch((error) => {
               // An error occurred
@@ -83,7 +83,7 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log("signedIn User", user);
+          // console.log("signedIn User", user);
         })
         .catch((error) => {
           const errorCode = error.code;
